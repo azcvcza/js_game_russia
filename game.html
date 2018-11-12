@@ -7,6 +7,28 @@
     <title>俄罗斯方块</title>
 </head>
 <body>
-    
+    <h1>EchoTest</h1>
+    <input type="text" id="sendTxt">
+    <button id="sendBtn">send</button>
+    <div id="recv"></div>
 </body>
+<script>
+    var websocket = new WebSocket("ws://echo.websocket.org/");
+    websocket.onopen = function(){
+        console.log("open")
+        document.getElementById("recv").innerHTML = "eonnected";
+    }
+    websocket.onclose = function(){
+        console.log("close");
+    }
+    websocket.onmessage = function(e){
+        console.log("log:",e.data);
+        document.getElementById("recv").innerHTML=e.data;
+    }
+
+    document.getElementById("sendBtn").onclick = function(){
+        var txt = document.getElementById("sendTxt").value;
+        websocket.send(txt);
+    }
+</script>
 </html>
