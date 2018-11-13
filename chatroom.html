@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>俄罗斯方块</title>
+    <title>聊天室</title>
 </head>
+
 <body>
-    <h1>EchoTest</h1>
+    <h1>chat room</h1>
     <input type="text" id="sendTxt">
     <button id="sendBtn">send</button>
     <div id="recv"></div>
 </body>
 <script>
     var websocket = new WebSocket("ws://localhost:3000/");
-    websocket.onopen = function(){
+    websocket.onopen = function () {
         console.log("open")
         document.getElementById("recv").innerHTML = "eonnected";
     }
-    websocket.onclose = function(){
+    websocket.onclose = function () {
         console.log("close");
     }
-    websocket.onmessage = function(e){
-        console.log("log:",e.data);
+    websocket.onmessage = function (e) {
+        console.log("log:", e.data);
         showMessage(e.data);
-        }
+    }
 
-    document.getElementById("sendBtn").onclick = function(){
+    document.getElementById("sendBtn").onclick = function () {
         var txt = document.getElementById("sendTxt").value;
         websocket.send(txt);
     }
@@ -36,4 +38,5 @@
     document.body.appendChild(div);
 }
 </script>
+
 </html>
