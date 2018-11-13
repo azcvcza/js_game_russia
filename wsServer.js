@@ -1,5 +1,5 @@
 var ws = require("nodejs-websocket");
-
+var Port = 3000;
 var server = ws.createServer(function(conn){
     console.log("New connection");
     conn.on("text",function(str){
@@ -8,5 +8,10 @@ var server = ws.createServer(function(conn){
     });
     conn.on("close",function(code,reason){
         console.log("connection closed");
+    });
+    conn.on("error",function(err){
+        console.log("handle error",err);
     })
-}).listen(8001);
+}).listen(Port);
+
+console.log("websocket listen on port:"+Port);
