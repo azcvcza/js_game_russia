@@ -13,7 +13,7 @@
     <div id="recv"></div>
 </body>
 <script>
-    var websocket = new WebSocket("ws://echo.websocket.org/");
+    var websocket = new WebSocket("ws://localhost:8001/");
     websocket.onopen = function(){
         console.log("open")
         document.getElementById("recv").innerHTML = "eonnected";
