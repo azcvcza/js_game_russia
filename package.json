@@ -1,0 +1,23 @@
+{
+  "name": "js_game_russia",
+  "version": "1.0.0",
+  "description": "拼俄罗斯",
+  "main": "none",
+  "dependencies": {
+    "nodejs-websocket": "^1.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azcvcza/js_game_russia.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azcvcza/js_game_russia/issues"
+  },
+  "homepage": "https://github.com/azcvcza/js_game_russia#readme"
+}
