@@ -20,6 +20,7 @@ var Local = function(){
             }
             else if(e.keyCode ==32 ){
                 //space
+                game.fall();
             }
         }
     }

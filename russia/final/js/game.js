@@ -97,15 +97,15 @@ var russia_game = function () {
         }
     }
     //check bottom         cur.origin,blockmodel
-    var isValid = function(pos,data){
+    var isValid = function (pos, data) {
         //console.log("invalid",data)
         for (var i = 0; i < data.length; i++) {
             for (var j = 0; j < data[0].length; j++) {
-               if(data[i][j]!=0){
-                    if(!check(pos,i,j)){
+                if (data[i][j] != 0) {
+                    if (!check(pos, i, j)) {
                         return false;
                     }
-               }
+                }
             }
         }
         return true;
@@ -138,17 +138,20 @@ var russia_game = function () {
     // game.down()
     var down = function () {
         //console.log("down",currentBlock,currentBlock.canDown())
-        if(currentBlock.canDown(isValid)){
+        if (currentBlock.canDown(isValid)) {
             clearData();
             currentBlock.down();
             setData();
             refreshDiv(gameData, gameDivs)
-        };
-       
+            return true
+        } else {
+            return false;
+        }
+
     }
     // game.left()
-    var left = function(){
-        if(currentBlock.canLeft(isValid)){
+    var left = function () {
+        if (currentBlock.canLeft(isValid)) {
             clearData();
             currentBlock.left();
             setData();
@@ -156,8 +159,8 @@ var russia_game = function () {
         };
     }
     //game .right()
-    var right = function(){
-        if(currentBlock.canRight(isValid)){
+    var right = function () {
+        if (currentBlock.canRight(isValid)) {
             clearData();
             currentBlock.right();
             setData();
@@ -165,8 +168,8 @@ var russia_game = function () {
         };
     }
     //game.rotate()
-    var rotate = function(){
-        if(currentBlock.canRotate(isValid)){
+    var rotate = function () {
+        if (currentBlock.canRotate(isValid)) {
             clearData();
             currentBlock.rotate();
             setData();
@@ -194,4 +197,5 @@ var russia_game = function () {
     this.left = left;
     this.right = right;
     this.rotate = rotate;
+    this.fall = function () {while (down()){}}
 }
