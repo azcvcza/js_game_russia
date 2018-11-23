@@ -74,7 +74,7 @@ var russia_game = function () {
     }
     //data validation
     var check = function (pos, x, y) {
-        console.log("check",pos,x,y)
+        //console.log("check",pos,x,y)
         if (pos.x + x < 0) {
             //上方边界
             return false;
@@ -98,7 +98,7 @@ var russia_game = function () {
     }
     //check bottom         cur.origin,blockmodel
     var isValid = function(pos,data){
-        console.log("invalid",data)
+        //console.log("invalid",data)
         for (var i = 0; i < data.length; i++) {
             for (var j = 0; j < data[0].length; j++) {
                if(data[i][j]!=0){
@@ -146,6 +146,33 @@ var russia_game = function () {
         };
        
     }
+    // game.left()
+    var left = function(){
+        if(currentBlock.canLeft(isValid)){
+            clearData();
+            currentBlock.left();
+            setData();
+            refreshDiv(gameData, gameDivs)
+        };
+    }
+    //game .right()
+    var right = function(){
+        if(currentBlock.canRight(isValid)){
+            clearData();
+            currentBlock.right();
+            setData();
+            refreshDiv(gameData, gameDivs)
+        };
+    }
+    //game.rotate()
+    var rotate = function(){
+        if(currentBlock.canRotate(isValid)){
+            clearData();
+            currentBlock.rotate();
+            setData();
+            refreshDiv(gameData, gameDivs)
+        };
+    }
     //init cur block
     var init = function (doms) {
         gameDiv = doms.gameDiv;
@@ -164,4 +191,7 @@ var russia_game = function () {
     //export
     this.init = init;
     this.down = down;
+    this.left = left;
+    this.right = right;
+    this.rotate = rotate;
 }
