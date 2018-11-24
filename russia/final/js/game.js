@@ -176,16 +176,28 @@ var russia_game = function () {
             refreshDiv(gameData, gameDivs)
         };
     }
+    //block arrived bottom
+    var arrived_bottom = function(){
+        for(var i=0;i<currentBlock.data.length;i++){
+            for(var j=0;j<currentBlock.data[0].length;j++){
+                if(check(currentBlock.origin,i,j)){
+                    if(gameData[currentBlock.origin.x +i][currentBlock.origin.y +j]===2){
+                        gameData[currentBlock.origin.x +i][currentBlock.origin.y +j]=1;
+                    }
+                }
+            }
+        }
+        refreshDiv(gameData,gameDivs)
+    }
     //init cur block
     var init = function (doms) {
         gameDiv = doms.gameDiv;
         nextDiv = doms.nextDiv;
-        currentBlock = new square();
-        next = new square();
+        currentBlock = SquareFactory.prototype.make(2,2);
+        next = SquareFactory.prototype.make(3,3);
         initDiv(gameDiv, gameData, gameDivs);
         initDiv(nextDiv, next.data, nextDivs);
-        currentBlock.origin.x = 5;
-        currentBlock.origin.y = 0;//不知道哪出问题了，初始化竟然要 -1；原因是square里边放在第二列了
+       //不知道哪出问题了，初始化竟然要 -1；原因是square里边放在第二列了
 
         setData();
         refreshDiv(gameData, gameDivs);
@@ -198,4 +210,5 @@ var russia_game = function () {
     this.right = right;
     this.rotate = rotate;
     this.fall = function () {while (down()){}}
+    this.arrived_bottom = arrived_bottom;
 }

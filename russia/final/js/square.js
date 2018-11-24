@@ -1,47 +1,20 @@
 var square = function () {
     //block
     this.data = [
-        [0, 2, 0, 0],
-        [0, 2, 0, 0],
-        [0, 2, 0, 0],
-        [0, 2, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
     ];
     //origin
     this.origin = {
         x: 0,
         y: 0,
     }
-    this.direction = 0;// save the rotates index
-    //旋转数组
-    this.rotates = [
-        [
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-        ],
-        [
-            [0, 0, 0, 0],
-            [2, 2, 2, 2],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-        ],
-        [
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-            [0, 2, 0, 0],
-        ],
-        [
-            [0, 0, 0, 0],
-            [2, 2, 2, 2],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0],
-        ],
-    ]
+    this.direction=0;
 }
 square.prototype.canRotate = function (is_Valid) {
-    var direction = this.direction+1;
+    var direction = (this.direction+1)%4;
     if(direction ==4){
        direction=0; 
     }
@@ -59,11 +32,10 @@ square.prototype.canRotate = function (is_Valid) {
     
     return is_Valid(this.origin, test);
 }
-square.prototype.rotate = function () {
-    this.direction+=1;
-    if(this.direction ==4){
-        this.direction=0; 
-     }
+square.prototype.rotate = function (num) {
+    if(!num){num =1;}
+    this.direction = (this.direction+num)%4;
+    
      for(var i=0;i<this.data.length;i++){
          for(var j=0;j<this.data[0].length;j++){
             this.data[i][j] = this.rotates[this.direction][i][j];
