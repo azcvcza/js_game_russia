@@ -271,6 +271,7 @@ SquareFactory.prototype.make = function (index, direction) {
     //console.log(index,s);
     s.origin.x = 0;
     s.origin.y = 3;
+    console.log("make block:",s,index,direction)
     s.rotate(direction);
     return s;
 }

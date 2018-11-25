@@ -177,28 +177,72 @@ var russia_game = function () {
         };
     }
     //block arrived bottom
-    var arrived_bottom = function(){
-        for(var i=0;i<currentBlock.data.length;i++){
-            for(var j=0;j<currentBlock.data[0].length;j++){
-                if(check(currentBlock.origin,i,j)){
-                    if(gameData[currentBlock.origin.x +i][currentBlock.origin.y +j]===2){
-                        gameData[currentBlock.origin.x +i][currentBlock.origin.y +j]=1;
+    var arrived_bottom = function () {
+        for (var i = 0; i < currentBlock.data.length; i++) {
+            for (var j = 0; j < currentBlock.data[0].length; j++) {
+                if (check(currentBlock.origin, i, j)) {
+                    if (gameData[currentBlock.origin.x + i][currentBlock.origin.y + j] === 2) {
+                        gameData[currentBlock.origin.x + i][currentBlock.origin.y + j] = 1;
                     }
                 }
             }
         }
+        refreshDiv(gameData, gameDivs)
+    }
+    //draw next block
+    var performNext = function (type, direction) {
+        currentBlock = next;
+        //console.log("performnext:", currentBlock, next,nextBlock,nextData);
+        setData();
+        next = SquareFactory.prototype.make(type, direction)
+        refreshDiv(gameData, gameDivs);
+        refreshDiv(next.data, nextDivs);
+    }
+    // clear bottom
+    var clear_bottom = function(){
+        for(var i = gameData.length-1;i>=0;i--){
+            var clear = true;
+            for(var j=0;j<gameData[0].length;j++){
+                if(gameData[i][j] !=1){
+                    clear = false;
+                    break;
+                }
+            }
+            if(clear){
+                for(var m =i;m>=0;m--){
+                    for(var n=0;n<gameData[0].length;n++){
+                       // console.log(gameData,m,n)
+                        gameData[m][n] = gameData[m-1][n];
+                        
+                    }
+                }
+                for(var n=0;n<gameData[0].length;n++){
+                    gameData[0][n] = 0;
+                }
+                i++;
+            }
+        }
         refreshDiv(gameData,gameDivs)
+    }
+    //check game over
+    var check_game_over = function(){
+        var gameOver = false;
+        for(var i=0;i<gameData[0].length;i++){
+            if(gameData[1][i] == 1){
+                gameOver = true;
+            }
+        }
+        return gameOver;
     }
     //init cur block
     var init = function (doms) {
         gameDiv = doms.gameDiv;
         nextDiv = doms.nextDiv;
-        currentBlock = SquareFactory.prototype.make(2,2);
-        next = SquareFactory.prototype.make(3,3);
+        currentBlock = SquareFactory.prototype.make(2, 2);
+        next = SquareFactory.prototype.make(3, 3);
         initDiv(gameDiv, gameData, gameDivs);
         initDiv(nextDiv, next.data, nextDivs);
-       //不知道哪出问题了，初始化竟然要 -1；原因是square里边放在第二列了
-
+        //不知道哪出问题了，初始化竟然要 -1；原因是square里边放在第二列了
         setData();
         refreshDiv(gameData, gameDivs);
         refreshDiv(next.data, nextDivs);
@@ -209,6 +253,9 @@ var russia_game = function () {
     this.left = left;
     this.right = right;
     this.rotate = rotate;
-    this.fall = function () {while (down()){}}
+    this.fall = function () { while (down()) { } }
     this.arrived_bottom = arrived_bottom;
+    this.performNext = performNext;
+    this.clear_bottom = clear_bottom;
+    this.check_game_over = check_game_over;
 }

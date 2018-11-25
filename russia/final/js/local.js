@@ -5,10 +5,35 @@ var Local = function () {
     var tickTime = 500;
     //定时器
     var timer = null;
+    //gen block type
+    var generateType = function () {
+        var result =Math.ceil(Math.random() * 7) - 1
+        //console.log(" gen type:",result);
+        return result;
+    }
+    //gen block direction
+    var generateDirection = function () {
+        var result =Math.ceil(Math.random() * 4) - 1;
+        //console.log(" gen direction:",result);
+        return result;
+    }
     //update
     var automove = function () {
         if (!game.down()) {
+            var index = generateType();
+            var direction = generateDirection();
+           
+            //console.log("auto move:",index,direction);
             game.arrived_bottom();
+            game.clear_bottom();
+            var over =  game.check_game_over();
+            if(over){
+                stop();
+            }
+            else{
+                game.performNext(index,direction); // next block display
+            }
+           
         }
     }
     //event bind
@@ -44,6 +69,13 @@ var Local = function () {
         bindKeyEvent();
         game.init(doms);
         timer = setInterval(automove, tickTime);
+    }
+    var stop = function(){
+        if(timer){
+            clearInterval(timer);
+            timer = null;
+        }
+        document.onkeydown =null;
     }
     this.start = start;
 }
